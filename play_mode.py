@@ -1,6 +1,7 @@
 from pico2d import *
 import game_framework
 import game_world
+import item_mode
 import pause_mode
 import title_mode
 from boy import Boy
@@ -18,7 +19,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_p:
             game_framework.push_mode(pause_mode)
             return
-        else:
+        elif not item_mode.handle_event(event, boy):
             boy.handle_event(event)
 
 
@@ -30,6 +31,7 @@ def init():
 
     grass = Grass()
     game_world.add_oject(grass, 0)
+    item_mode.init()
 
 
 def update():
@@ -39,6 +41,7 @@ def update():
 def render():
     clear_canvas()
     game_world.render()
+    item_mode.draw(boy)
     update_canvas()
 
 
