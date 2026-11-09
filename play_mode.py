@@ -13,6 +13,7 @@ def handle_events():
     for event in event_list:
         if event.type == SDL_QUIT:
             game_framework.quit()
+            return
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_mode(title_mode)
             return
@@ -46,6 +47,7 @@ def render():
 
 
 def finish():
+    item_mode.finish()
     game_world.clear()
 
 
