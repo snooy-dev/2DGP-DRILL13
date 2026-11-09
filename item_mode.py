@@ -1,6 +1,7 @@
 from pico2d import (draw_rectangle, get_canvas_height, get_canvas_width,
                     load_font, load_image)
 from sdl2 import SDL_KEYDOWN, SDLK_0, SDLK_1, SDLK_2, SDLK_i
+from sdl2.sdlttf import TTF_CloseFont
 
 is_open = False
 image = None
@@ -16,6 +17,9 @@ def init():
 
 def finish():
     global is_open, image, font
+    if font is not None:
+        # pico2d.Font에는 SDL 글꼴 자원을 해제하는 소멸자가 없다.
+        TTF_CloseFont(font.font)
     is_open = False
     image = None
     font = None
