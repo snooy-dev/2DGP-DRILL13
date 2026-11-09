@@ -1,6 +1,6 @@
 from pico2d import (draw_rectangle, get_canvas_height, get_canvas_width,
                     load_font, load_image)
-from sdl2 import SDL_KEYDOWN, SDLK_i
+from sdl2 import SDL_KEYDOWN, SDLK_0, SDLK_1, SDLK_2, SDLK_i
 
 is_open = False
 image = None
@@ -26,6 +26,10 @@ def handle_event(event, boy):
     if event.type == SDL_KEYDOWN and event.key == SDLK_i:
         if not getattr(event, 'repeat', False):
             is_open = not is_open
+        return True
+    if (is_open and event.type == SDL_KEYDOWN and
+            event.key in (SDLK_0, SDLK_1, SDLK_2)):
+        boy.select_ball(event.key - SDLK_0)
         return True
     return False
 
